@@ -59,8 +59,8 @@ parser.add_option(      "-D", "--debug",
 
 parser.add_option(      "-S", "--section",
             dest ="section",
-            default="global",
-            help ="Select the main section of the main configuration file (default: global).")
+            default="main",
+            help ="Select the main section of the main configuration file (default: main).")
 
 
 

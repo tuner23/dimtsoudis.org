@@ -43,7 +43,6 @@ class SystemClass:
         ## Use configuration files
         self.config = self.options.config
         ## Main section inside configuration files
-        ## TODO: systemclass options should be in 'sysclass' section instead of 'global'
         self.main_section = False
         if self.config:
             config_files = []
@@ -61,6 +60,7 @@ class SystemClass:
                 self.ErrorExit(self, "Sorry, " + str(self.config_file) + " is neither a directory, nor a file")
             ## List of configuration files to be parsed
             self.config_files = config_files
+            self.sysclass_section = "sysclass"
             self.main_section = self.options.section
             ## ConfigParser object with parsed configuration
             self.configuration = ConfigParser.ConfigParser()
@@ -73,8 +73,8 @@ class SystemClass:
 #        if options.verbosity:
         if ((self.options.verbosity) or
           (self.config and
-          self.configuration.has_option(self.main_section,'verbose') and
-          self.configuration.get(self.main_section,'verbose') == 'True')):
+          self.configuration.has_option(self.sysclass_section,'verbose') and
+          self.configuration.get(self.sysclass_section,'verbose') == 'True')):
             self.verbose = True
         else:
             self.verbose = False
@@ -84,8 +84,8 @@ class SystemClass:
 #        if options.debug:
         if ((self.options.debug) or
           (self.config and
-          self.configuration.has_option(self.main_section,'debug') and
-          self.configuration.get(self.main_section,'debug') == 'True')):
+          self.configuration.has_option(self.sysclass_section,'debug') and
+          self.configuration.get(self.sysclass_section,'debug') == 'True')):
             self.debug = True
             self.verbose = True
         else:
@@ -158,9 +158,15 @@ class SystemClass:
         self.Debug(klass, output, header=header)
         print "\n\n"
         ## TODO: Evalate True/False to bool when necessary
-        if self.GetValue('help_on_error') == 'True':
+        ## TODO: sysclass variables should be initialized on init (and don't use main section..)
+        try:
+            help_on_error = self.GetValue('help_on_error', section='sysclass')
+        except:
+            help_on_error = False
+
+        if help_on_error == 'True':
             print "xxxx"
-            print self.GetValue('help_on_error')
+            print self.GetValue('help_on_error', section='sysclass')
             self.parser.print_help()
             print "xxxx"
         sys.exit()
