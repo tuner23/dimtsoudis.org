@@ -4,7 +4,6 @@
 ## Python Classes
 import os
 import sys
-#import re
 from optparse import OptionParser
 
 ## Own Classes
@@ -17,21 +16,22 @@ class MyOptionParser(OptionParser):
     def format_description(self, formatter):
         return self.get_description()
     def format_epilog(self, formatter):
-        return self.epilog
+        return self.expand_prog_name(self.epilog)
 
 ## Parse Options
 parser = MyOptionParser(  "%prog   [OPTIONS]",
-            description = '''\
-AppName - Short desc
+            description = """\
+MyApp - Dummy
 
-Insert further description here.
-''',
-            version = "0.1",
-            epilog = '''
+Skeleton for new software using sysclass
+""",
+            version = "0.9",
+            epilog = """
 Examples:
     Some examples:
         %prog -h
-''' 
+        %prog -C -D
+""" 
 )
 
 parser.add_option(      "-C", "--config",
