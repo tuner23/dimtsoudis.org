@@ -1,9 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+## TODO: Documentation of package, class, function
 """@package systemclass.py
-TODO: Documentation for this module.
+Several helper tools needed to support good software
  
-More details.
+Supports:
+  * Error handling
+  * Verbosity
+  * Debugging
+  * Logging
+  * Configuration files
 """
 
 __author__ = "Antonios Dimtsoudis"
@@ -18,8 +24,14 @@ import sys
 import inspect
 import ConfigParser
  
-## TODO: Documentation of package, class, function
+## Support several helper tools
 class SystemClass:
+    ''' System class supports
+      * Handling configuration files
+      * Logging
+      * Debugging and verbosity
+      * Error handling'''
+
     def __init__(self,parser):
         """The Constructor.
  
